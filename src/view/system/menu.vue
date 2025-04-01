@@ -10,7 +10,8 @@
                      :columns="columns"
                      :requestAuto="false"
                      :data="tableData"
-                     row-key="id">
+                     row-key="id"
+                     @refreshTable="getTableData">
             <!-- 表格 header 按钮 -->
             <template #tableHeader="scope">
                 <el-button type="primary" :icon="CirclePlus" @click="addMenu(0)">新增根菜单</el-button>

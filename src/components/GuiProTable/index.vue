@@ -130,6 +130,7 @@
             />
         </slot>
     </div>
+
     <!-- 列设置 -->
     <ColSetting v-if="toolButton" ref="colRef" v-model:col-setting="colSetting" />
 </template>
@@ -153,8 +154,8 @@
         columns: { type: Array, default: () => [] },
         data: { type: [Array, null], default: () => [] },
         requestApi: {
-            type: Function, default: () => {
-            }
+            type: [Function, Boolean],
+            default: false
         },
         requestError: {
             type: Function, default: () => {
@@ -257,7 +258,26 @@
     })
 
     // 监听页面 initParam 改化，重新获取表格数据
-    watch(() => props.initParam, getTableList, { deep: true })
+    // watch(() => props.initParam, getTableList, { deep: true })
+    watch(
+        [() => props.initParam, () => props.data],
+        ([newInitParam, newData], [oldInitParam, oldData]) => {
+            // 检查 initParam 是否变化
+            const initParamChanged = JSON.stringify(newInitParam) !== JSON.stringify(oldInitParam);
+
+            // 更新 tableData 和 pageable.total
+            if (newData) {
+                tableData.value = newData;
+                pageable.value.total = newData.length;
+            }
+
+            // 仅当 initParam 变化时调用 getTableList
+            if (initParamChanged) {
+                getTableList();
+            }
+        },
+        { deep: true, immediate: true }
+    );
 
     // 接收 columns 并设置为响应式
     const tableColumns = reactive(props.columns)
@@ -342,7 +362,8 @@
         'deleteAction',
         'staticDataChange',
         'rowClick',
-        'crossParents'
+        'crossParents',
+        'refreshTable'
     ])
 
     const _search = async () => {
@@ -453,6 +474,14 @@
 
     const crossParents = nodeObject => {
         emit('crossParents', nodeObject)
+    }
+
+    const handleRefresh = () => {
+        if (props.requestApi) {
+            getTableList();
+        } else {
+            emit('refreshTable'); // 触发刷新事件
+        }
     }
 
     // 暴露给父组件的参数和方法 (外部需要什么，都可以从这里暴露出去)
