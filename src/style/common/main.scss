@@ -1,0 +1,38 @@
+@use "reset";
+@use "transition";
+
+.vvw {
+    width: 100%;
+}
+
+.vvh {
+    height: 100%;
+}
+
+#app {
+    height: 100vh;
+    overflow: hidden;
+    font-weight: 400 !important;
+    color: var(--gui-color-text-regular);
+}
+
+.gui-layout {
+    background-color: #eaeef3;
+
+    .gui-layout__body {
+        &.is-tabs {
+            height: calc(100% - 16px - 49px) !important;
+        }
+    }
+}
+
+
+.html-grey {
+    filter: grayscale(100%);
+}
+
+.html-weakenss {
+    filter: invert(80%);
+}
+
+

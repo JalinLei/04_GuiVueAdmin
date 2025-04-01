@@ -1,0 +1,34 @@
+/* Light Theme */
+:root {
+    --gui-color-primary: #1A73E8;
+
+    --gui-color-grey-900: #212121;
+    --gui-color-grey-800: #424242;
+    --gui-color-grey-700: #616161;
+    --gui-color-grey-600: #757575;
+    --gui-color-grey-500: #9e9e9e;
+    --gui-color-grey-400: #bdbdbd;
+    --gui-color-grey-300: #e0e0e0;
+    --gui-color-grey-200: #ededed;
+    --gui-color-grey-100: #f5f5f5;
+
+    --gui-color-text-primary: var(--gui-color-grey-900);       // 场景：主要文本、关键字Title、Input输入信息等
+    --gui-color-text-regular: var(--gui-color-grey-800);       // 场景：表格、操作按钮文字，树形文字，表头文字
+    --gui-color-text-secondary: var(--gui-color-grey-700);     // 场景：Label
+    --gui-color-text-placeholder: var(--gui-color-grey-500);   // 场景：Placeholder、禁用、图标Icon
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --gui-color-primary: #8ab4f8;
+
+    --gui-color-grey-900: #ffffff;
+    --gui-color-grey-800: #e0e0e0;
+    --gui-color-grey-700: #bdbdbd;
+    --gui-color-grey-600: #9e9e9e;
+    --gui-color-grey-500: #757575;
+    --gui-color-grey-400: #616161;
+    --gui-color-grey-300: #424242;
+    --gui-color-grey-200: #303030;
+    --gui-color-grey-100: #212121;
+}

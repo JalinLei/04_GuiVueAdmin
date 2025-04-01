@@ -1,0 +1,43 @@
+/*
+ * @Description  : 修改Element Plus主题色并引入组件样式表
+ * @Author       : Jalin
+ */
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+    $colors: (
+        'white': #ffffff,
+        'black': #000000,
+        'primary': (
+          'base': #1A73E8
+        ),
+        'success': (
+          'base': #34A853
+        ),
+        'warning': (
+          'base': #F7A825
+        ),
+        'danger': (
+          'base': #EC414D
+        ),
+        'error': (
+          'base': #EC414D
+        ),
+        'info': (
+          'base': #BDBDBD
+        )
+    ),
+    $text-color: (
+        'primary': #212121,
+        'regular': #424242,
+        'secondary': #616161,
+        'placeholder': #9e9e9e,
+    ),
+    $menu: (
+        'base-level-padding': 24px,
+        'text-color': #424242,
+    )
+);
+
+@use "element-plus/theme-chalk/src/index" as *;
+
+// import 'element-plus/dist/index.css'

@@ -1,0 +1,26 @@
+/*
+ * @Description  : 左侧Aside
+ * @Author       : Jalin
+ */
+
+.gui-aside-left {
+    .el-menu--vertical .el-menu-item {
+        border-radius: 0;
+    }
+    .el-menu--vertical .el-menu-item.is-active {
+        background-color: rgba(26, 115, 232, 0.1) !important;
+        color: var(--gui-color-text-regular) !important;
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 4px;
+            height: 100%;
+            background-color: var(--el-color-primary);
+        }
+    }
+}
