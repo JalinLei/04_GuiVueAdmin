@@ -4,7 +4,7 @@
  --------------------------------->
 
 <template>
-    <div class="gui-system-user gui-pro-table">
+    <div class="h-full gui-system-user">
         <GuiProTable ref="GuiProTableRef"
                      :pagination="false"
                      :columns="columns"
@@ -207,8 +207,7 @@
                     <el-col :span="8">
                         <el-form-item>
                             <template #label>
-                                <div>
-                                    <span> 是否为基础页面 </span>
+                                <div><span> 是否为基础页面 </span>
                                     <el-tooltip
                                         content="此项选择为是，则不会展示左侧菜单以及顶部信息。"
                                         placement="top"
@@ -221,11 +220,7 @@
                                 </div>
                             </template>
 
-                            <el-select
-                                v-model="form.meta.defaultMenu"
-                                style="width: 100%"
-                                placeholder="是否为基础页面"
-                            >
+                            <el-select v-model="form.meta.defaultMenu" style="width: 100%" placeholder="是否为基础页面">
                                 <el-option :value="false" label="否" />
                                 <el-option :value="true" label="是" />
                             </el-select>

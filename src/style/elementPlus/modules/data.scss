@@ -1,0 +1,65 @@
+/**********************************
+ * @Desc: Data 数据展示
+ * @Author:  Jalin
+ **********************************/
+
+/* Table 表格
+========================================================================== */
+.el-table {
+    tr {
+        th {
+            @apply dark:bg-slate-900;
+            .cell {
+                @apply leading-[36px] text-gray-700 dark:text-gray-200;
+            }
+        }
+    }
+
+    .el-table__row {
+        td {
+            @apply dark:bg-slate-900;
+            .cell {
+                @apply leading-[32px] text-gray-600 dark:text-gray-300;
+            }
+        }
+    }
+
+    tr {
+        th {
+            &.is-leaf {
+                @apply dark:bg-slate-900;
+            }
+        }
+    }
+}
+
+/* Pagination 分页
+========================================================================== */
+.el-pagination {
+    .btn-prev,
+    .btn-next {
+        @apply border border-solid;
+        border-color: rgba(0, 0, 0, 0.12);
+
+    }
+
+    .el-pager {
+        li {
+            @apply border border-solid;
+            border-color: rgba(0, 0, 0, 0.12);
+            font-weight: 400;
+
+            &:hover {
+                border-color: var(--el-color-primary);
+            }
+        }
+    }
+
+    &.is-background .btn-prev.is-active,
+    &.is-background .btn-next.is-active,
+    &.is-background .el-pager li.is-active {
+        background-color: var(--el-pagination-button-bg-color);
+        color: var(--el-color-primary);
+        border-color: var(--el-color-primary);
+    }
+}

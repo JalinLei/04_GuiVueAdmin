@@ -127,7 +127,7 @@
         emit('cancel')
     }
     const opened = () => {
-        // getMenuList()
+        getMenuList()
     }
 
     defineExpose({

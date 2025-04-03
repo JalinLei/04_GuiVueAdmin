@@ -9,6 +9,8 @@
             @tab-click="changeTab"
             @tab-remove="removeTab"
             @click.middle.prevent="middleCloseTab($event)"
+
+            ref="tabsRef"
         >
             <el-tab-pane
                 v-for="item in historys"
@@ -19,22 +21,15 @@
                 class="border-none"
             >
                 <template #label>
-          <span
-              :tab="item"
-              :class="
-              activeValue === getFmtString(item)
-                ? 'text-active'
-                : 'text-gray-600 dark:text-slate-400 '
-            "
-          ><i
-              :class="
-                activeValue === getFmtString(item)
-                  ? 'text-active'
-                  : 'text-gray-600 dark:text-slate-400'
-              "
-          />
-            {{ fmtTitle(item.meta.title, item) }}</span
-          >
+                    <span :tab="item" :class="activeValue === getFmtString(item) ? 'text-active': 'text-gray-600 dark:text-slate-400 '">
+                        <i :class="
+                                activeValue === getFmtString(item)
+                                ? 'text-active'
+                                : 'text-gray-600 dark:text-slate-400'
+                        "
+                        />
+                        {{ fmtTitle(item.meta.title, item) }}
+                    </span>
                 </template>
             </el-tab-pane>
         </el-tabs>
@@ -43,8 +38,7 @@
         <ul
             v-show="contextMenuVisible"
             :style="{ left: left + 'px', top: top + 'px' }"
-            class="contextmenu"
-        >
+            class="contextmenu">
             <li @click="closeAll">关闭所有</li>
             <li @click="closeLeft">关闭左侧</li>
             <li @click="closeRight">关闭右侧</li>
@@ -55,15 +49,16 @@
 
 <script setup>
     import { emitter } from '@/utils/common/bus.js'
-    import { computed, onUnmounted, ref, watch, nextTick } from 'vue'
+    import { computed, onUnmounted, ref, watch, nextTick, onMounted } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
     import { useUserStore } from '@/pinia/modules/user'
     import { fmtTitle } from '@/utils/common/fmtRouterTitle'
 
     defineOptions({
-        name: 'GuiTabs',
+        name: 'GuiTabs'
     })
 
+    const tabsRef = ref(null)
     const route = useRoute()
     const router = useRouter()
 
@@ -234,24 +229,19 @@
         historys.value.splice(index, 1)
     }
 
-    watch(
-        () => contextMenuVisible.value,
-        () => {
-            if (contextMenuVisible.value) {
-                document.body.addEventListener('click', () => {
-                    contextMenuVisible.value = false
-                })
-            } else {
-                document.body.removeEventListener('click', () => {
-                    contextMenuVisible.value = false
-                })
-            }
+    watch(() => contextMenuVisible.value, () => {
+        if (contextMenuVisible.value) {
+            document.body.addEventListener('click', () => {
+                contextMenuVisible.value = false
+            })
+        } else {
+            document.body.removeEventListener('click', () => {
+                contextMenuVisible.value = false
+            })
         }
-    )
+    })
 
-    watch(
-        () => route,
-        (to) => {
+    watch(() => route, (to) => {
             if (to.name === 'Login' || to.name === 'Reload') {
                 return
             }
@@ -260,8 +250,7 @@
             sessionStorage.setItem('historys', JSON.stringify(historys.value))
             activeValue.value = window.sessionStorage.getItem('activeValue')
         },
-        { deep: true }
-    )
+        { deep: true })
 
     watch(
         () => historys.value,
@@ -355,6 +344,10 @@
     onUnmounted(() => {
         emitter.off('collapse')
         emitter.off('mobile')
+
+        if (tabsRef.value) {
+            tabsRef.value.$el.removeEventListener('wheel', handleScroll)
+        }
     })
 
     const middleCloseTab = (e) => {
@@ -371,6 +364,22 @@
             removeTab(id.substring(4))
         }
     }
+
+    const handleScroll = (event) => {
+        if (!tabsRef.value) return
+        const navScroll = tabsRef.value.$el.querySelector('.el-tabs__nav-scroll')
+        if (navScroll) {
+            navScroll.scrollLeft += event.deltaY > 0 ? 50 : -50 // 滚轮向下滚动右移，向上左移
+        }
+    }
+
+    onMounted(() => {
+        nextTick(() => {
+            if (tabsRef.value) {
+                tabsRef.value.$el.addEventListener('wheel', handleScroll, { passive: false })
+            }
+        })
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -385,6 +394,17 @@
     $base-tag-item-height: 4rem;
 
     .gui-tabs {
+        ::v-deep(.el-tabs__nav-scroll) {
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none; // 隐藏滚动条
+            -ms-overflow-style: none; // 隐藏 IE 滚动条
+        }
+
+        ::v-deep(.el-tabs__nav-scroll::-webkit-scrollbar) {
+            display: none; // 隐藏 Webkit 滚动条
+        }
+
         ::v-deep(.el-tabs--card > .el-tabs__header) {
             border: none;
             height: 48px;
@@ -405,15 +425,23 @@
         ::v-deep(.el-tabs__item) {
             box-sizing: border-box;
             border: 1px solid var(--el-border-color-darker);
-            border-radius: 2px;
+            border-radius: 0;
             margin-right: 5px;
             margin-left: 2px;
             transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
-            height: 34px;
+            height: 32px;
 
             &.is-active {
                 border: 1px solid var(--el-color-primary);
             }
+        }
+
+        ::v-deep(.el-tabs__nav-next) {
+            line-height: 32px;
+        }
+
+        ::v-deep(.el-tabs__nav-prev) {
+            line-height: 32px;
         }
 
         ::v-deep(.el-tabs__item):first-child {

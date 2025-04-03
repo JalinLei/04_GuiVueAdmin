@@ -3,6 +3,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserStore } from '@/pinia/modules/user'
 import router from '@/router'
 import { ElLoading } from 'element-plus'
+import {UtilsFile} from '@/utils'
 
 const service = axios.create({
     baseURL: import.meta.env.VITE_BASE_API,

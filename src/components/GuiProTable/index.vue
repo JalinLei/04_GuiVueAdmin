@@ -1,138 +1,140 @@
 <template>
-    <!-- 查询表单 -->
-    <GuiSearchForm
-        v-show="isShowSearch"
-        :search="_search"
-        :reset="_reset"
-        :columns="searchColumns"
-        :search-param="searchParam"
-        :search-col="searchCol"
-    />
+    <div class="gui-pro-table">
+        <!-- 查询表单 -->
+        <GuiSearchForm
+            v-show="isShowSearch"
+            :search="_search"
+            :reset="_reset"
+            :columns="searchColumns"
+            :search-param="searchParam"
+            :search-col="searchCol"
+        />
 
-    <!-- 表格主体 -->
-    <div class="card table-main">
-        <!-- 表格头部 操作按钮 -->
-        <div class="table-header">
-            <div class="header-button-lf">
-                <slot name="tableHeader" :selected-list="selectedList" :selected-list-ids="selectedListIds" :is-selected="isSelected" />
-            </div>
-            <div v-if="toolButton" class="header-button-ri">
-                <slot name="toolButton">
-                    <el-space>
-                        <el-tooltip v-if="showToolButton('refresh')" content="刷新" placement="top">
-                            <el-button :icon="Refresh" circle @click="getTableList" />
-                        </el-tooltip>
-                        <el-tooltip v-if="showToolButton('setting') && columns.length" content="列设置" placement="top">
-                            <el-button circle :icon="Operation" @click="openColSetting" />
-                        </el-tooltip>
-                        <el-tooltip v-if="showToolButton('search') && searchColumns?.length" content="开/关搜索"
-                                    placement="top">
-                            <el-button :icon="Search" circle @click="isShowSearch = !isShowSearch" />
-                        </el-tooltip>
-                        <el-tooltip v-if="isTreeData" content="开/关图谱" placement="top">
-                            <el-button :icon="Share" circle @click="switchGraphStatus" />
-                        </el-tooltip>
-                    </el-space>
-                </slot>
-            </div>
-        </div>
         <!-- 表格主体 -->
-        <el-table
-            v-if="!isShowGraph"
-            ref="tableRef"
-            v-bind="$attrs"
-            :id="uuid"
-            :data="tableData"
-            :border="border"
-            :row-key="rowKey"
-            @selection-change="selectionChange"
-        >
-            <!-- 默认插槽 -->
-            <slot />
-            <template v-for="item in tableColumns" :key="item">
-                <!-- selection || radio || index || expand || sort -->
-                <el-table-column
-                    v-if="item.type && columnTypes.includes(item.type)"
-                    v-bind="item"
-                    :align="item.align ?? 'center'"
-                    :reserve-selection="item.type === 'selection'"
-                >
-                    <template #default="scope">
-                        <!-- expand -->
-                        <template v-if="item.type === 'expand'">
-                            <component :is="item.render" v-bind="scope" v-if="item.render" />
-                            <slot v-else :name="item.type" v-bind="scope" />
-                        </template>
-                        <!-- radio -->
-                        <el-radio v-if="item.type === 'radio'" v-model="radio" :label="scope.row[rowKey]"><i></i>
-                        </el-radio>
-                        <!-- sort -->
-                        <el-tag v-if="item.type === 'sort'" class="move">
-                            <el-icon>
-                                <DCaret />
-                            </el-icon>
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <!-- other -->
-                <TableColumn v-else :column="item">
-                    <template v-for="slot in Object.keys($slots)" #[slot]="scope">
-                        <slot :name="slot" v-bind="scope" />
-                    </template>
-                </TableColumn>
-            </template>
-            <!-- 插入表格最后一行之后的插槽 -->
-            <template #append>
-                <slot name="append">{{ defaultAppendValue }}</slot>
-            </template>
-            <!-- 无数据 -->
-            <template #empty>
-                <div class="table-empty">
-                    <slot name="empty">
-                        <img src="@/assets/images/common/notData.svg" alt="notData" />
-                        <p>暂无数据</p>
+        <div class="pro-table__card pro-table__body">
+            <!-- 表格头部 操作按钮 -->
+            <div class="table-header">
+                <div class="header-button-lf">
+                    <slot name="tableHeader" :selected-list="selectedList" :selected-list-ids="selectedListIds" :is-selected="isSelected" />
+                </div>
+                <div v-if="toolButton" class="header-button-ri">
+                    <slot name="toolButton">
+                        <el-space>
+                            <el-tooltip v-if="showToolButton('refresh')" content="刷新" placement="top">
+                                <el-button :icon="Refresh" circle @click="getTableList" />
+                            </el-tooltip>
+                            <el-tooltip v-if="showToolButton('setting') && columns.length" content="列设置" placement="top">
+                                <el-button circle :icon="Operation" @click="openColSetting" />
+                            </el-tooltip>
+                            <el-tooltip v-if="showToolButton('search') && searchColumns?.length" content="开/关搜索"
+                                        placement="top">
+                                <el-button :icon="Search" circle @click="isShowSearch = !isShowSearch" />
+                            </el-tooltip>
+                            <el-tooltip v-if="isTreeData" content="开/关图谱" placement="top">
+                                <el-button :icon="Share" circle @click="switchGraphStatus" />
+                            </el-tooltip>
+                        </el-space>
                     </slot>
                 </div>
-            </template>
-        </el-table>
-        <!-- 图谱组件 -->
-        <Graph
-            ref="relationGraph"
-            v-if="(tableData || data) && isShowGraph"
-            :tree-data="tableData || data"
-            :children-name="childrenName"
-            :label-name="labelName"
-            :label-key="labelKey"
-            :show-tip="showTip"
-            :high-light="highLight"
-            :graph="graph"
-            :enable-cross-parents="enableCrossParents"
-            @action="action"
-            @cross-parents="crossParents"
-        >
-            <template #action="{ nodeObject }">
-                <slot name="graphAction" :node-object="nodeObject"></slot>
-            </template>
-            <template #preAction="{ nodeObject }">
-                <slot name="graphPreAction" :node-object="nodeObject"></slot>
-            </template>
-            <template #tip="{ nodeObject }">
-                <slot name="tip" :node-object="nodeObject" />
-            </template>
-        </Graph>
-        <!-- 分页组件 -->
-        <slot name="pagination">
-            <Pagination
-                v-if="pagination"
-                :pageable="pageable"
-                :handle-size-change="handleSizeChange"
-                :handle-current-change="handleCurrentChange"
-            />
-        </slot>
-    </div>
+            </div>
+            <!-- 表格主体 -->
+            <el-table
+                v-if="!isShowGraph"
+                ref="tableRef"
+                v-bind="$attrs"
+                :id="uuid"
+                :data="tableData"
+                :border="border"
+                :row-key="rowKey"
+                @selection-change="selectionChange"
+            >
+                <!-- 默认插槽 -->
+                <slot />
+                <template v-for="item in tableColumns" :key="item">
+                    <!-- selection || radio || index || expand || sort -->
+                    <el-table-column
+                        v-if="item.type && columnTypes.includes(item.type)"
+                        v-bind="item"
+                        :align="item.align ?? 'center'"
+                        :reserve-selection="item.type === 'selection'"
+                    >
+                        <template #default="scope">
+                            <!-- expand -->
+                            <template v-if="item.type === 'expand'">
+                                <component :is="item.render" v-bind="scope" v-if="item.render" />
+                                <slot v-else :name="item.type" v-bind="scope" />
+                            </template>
+                            <!-- radio -->
+                            <el-radio v-if="item.type === 'radio'" v-model="radio" :label="scope.row[rowKey]"><i></i>
+                            </el-radio>
+                            <!-- sort -->
+                            <el-tag v-if="item.type === 'sort'" class="move">
+                                <el-icon>
+                                    <DCaret />
+                                </el-icon>
+                            </el-tag>
+                        </template>
+                    </el-table-column>
+                    <!-- other -->
+                    <TableColumn v-else :column="item">
+                        <template v-for="slot in Object.keys($slots)" #[slot]="scope">
+                            <slot :name="slot" v-bind="scope" />
+                        </template>
+                    </TableColumn>
+                </template>
+                <!-- 插入表格最后一行之后的插槽 -->
+                <template #append>
+                    <slot name="append">{{ defaultAppendValue }}</slot>
+                </template>
+                <!-- 无数据 -->
+                <template #empty>
+                    <div class="table-empty">
+                        <slot name="empty">
+                            <img src="@/assets/images/common/notData.svg" alt="notData" />
+                            <p>暂无数据</p>
+                        </slot>
+                    </div>
+                </template>
+            </el-table>
+            <!-- 图谱组件 -->
+            <Graph
+                ref="relationGraph"
+                v-if="(tableData || data) && isShowGraph"
+                :tree-data="tableData || data"
+                :children-name="childrenName"
+                :label-name="labelName"
+                :label-key="labelKey"
+                :show-tip="showTip"
+                :high-light="highLight"
+                :graph="graph"
+                :enable-cross-parents="enableCrossParents"
+                @action="action"
+                @cross-parents="crossParents"
+            >
+                <template #action="{ nodeObject }">
+                    <slot name="graphAction" :node-object="nodeObject"></slot>
+                </template>
+                <template #preAction="{ nodeObject }">
+                    <slot name="graphPreAction" :node-object="nodeObject"></slot>
+                </template>
+                <template #tip="{ nodeObject }">
+                    <slot name="tip" :node-object="nodeObject" />
+                </template>
+            </Graph>
+            <!-- 分页组件 -->
+            <slot name="pagination">
+                <Pagination
+                    v-if="pagination"
+                    :pageable="pageable"
+                    :handle-size-change="handleSizeChange"
+                    :handle-current-change="handleCurrentChange"
+                />
+            </slot>
+        </div>
 
-    <!-- 列设置 -->
-    <ColSetting v-if="toolButton" ref="colRef" v-model:col-setting="colSetting" />
+        <!-- 列设置 -->
+        <ColSetting v-if="toolButton" ref="colRef" v-model:col-setting="colSetting" />
+    </div>
 </template>
 
 <script setup name="GuiProTable">
@@ -259,9 +261,11 @@
 
     // 监听页面 initParam 改化，重新获取表格数据
     // watch(() => props.initParam, getTableList, { deep: true })
-    watch(
+    /*watch(
         [() => props.initParam, () => props.data],
         ([newInitParam, newData], [oldInitParam, oldData]) => {
+            console.log(newInitParam, newData)
+
             // 检查 initParam 是否变化
             const initParamChanged = JSON.stringify(newInitParam) !== JSON.stringify(oldInitParam);
 
@@ -274,6 +278,28 @@
             // 仅当 initParam 变化时调用 getTableList
             if (initParamChanged) {
                 getTableList();
+            }
+        },
+        { deep: true, immediate: true }
+    );*/
+    // 监听 initParam 变化，决定是否调用 getTableList
+    watch(
+        () => props.initParam,
+        (newInitParam, oldInitParam) => {
+            if (JSON.stringify(newInitParam || {}) !== JSON.stringify(oldInitParam || {})) {
+                getTableList();
+            }
+        },
+        { deep: true, immediate: true }
+    );
+
+    // 监听 data 变化，更新 tableData 和 pageable.total
+    watch(
+        () => props.data,
+        (newData) => {
+            if (Array.isArray(newData)) {
+                tableData.value = newData;
+                pageable.value.total = newData.length;
             }
         },
         { deep: true, immediate: true }

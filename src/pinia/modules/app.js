@@ -8,11 +8,11 @@ export const useAppStore = defineStore('app', () => {
     const drawerSize = ref('')
     const operateMinWith = ref('240')
     const config = reactive({
-        weakness: false,
-        grey: false,
-        primaryColor: '#1A73E8',
-        showTabs: true,
-        darkMode: 'auto',
+        weakness: false, // 色弱模式
+        grey: false, // 灰色模式
+        primaryColor: '#1A73E8', // 主色
+        showTabs: true, // 显示标签页
+        darkMode: 'auto', // 默认主题 dark | light | auto
         layout_side_width: 256,
         layout_side_collapsed_width: 80,
         layout_side_item_height: 56,

@@ -1,0 +1,52 @@
+/**********************************
+ * @Desc: 导航组件(menu | tabs等)
+ * @Author:  Jalin
+ **********************************/
+
+/* Menu 菜单
+========================================================================== */
+.el-menu {
+    li {
+        margin: 0;
+    }
+}
+.el-menu--vertical {
+    .el-menu-item {
+        border-radius: 0;
+
+        &.is-active {
+            background-color: var(--el-color-primary) !important;
+            color: #fff !important;
+        }
+    }
+}
+.el-sub-menu.el-sub-menu__hide-arrow {
+    //height: 44px;
+}
+
+.el-sub-menu.is-active {
+    > .el-sub-menu__title {
+        color: var(--el-color-primary) !important;
+    }
+}
+.el-sub-menu__title.el-tooltip__trigger,
+.el-menu-item .el-menu-tooltip__trigger {
+    justify-content: center;
+}
+.el-menu--horizontal .el-menu .el-sub-menu__title {
+    justify-content: flex-start;
+}
+
+
+
+/* Dropdown 下拉菜单
+========================================================================== */
+.el-dropdown {
+    @apply overflow-hidden;
+}
+
+/* Tabs 标签页
+========================================================================== */
+.el-tabs__header {
+    margin: 0;
+}

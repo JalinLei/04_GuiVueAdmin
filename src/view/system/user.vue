@@ -27,10 +27,10 @@ const userStateEnums = ref([
 const columns = reactive([
     // { type: 'selection', fixed: 'left', width: 70 },
     {
-        prop: 'name',
+        prop: 'userName',
         label: '用户名称',
         minWidth: 200,
-        search: { el: 'input', key: 'name' }
+        search: { el: 'input', key: 'userName' }
     },
     {
         prop: 'status',
@@ -40,7 +40,7 @@ const columns = reactive([
         search: { el: 'select', key: 'state' },
         render: (scope) => {
             return (
-                <el-tag type={UtilsArray.getEnumLabel(userStateEnums.value, scope.row?.state, 'value', 'type')}>
+                <el-tag size="mini" type={UtilsArray.getEnumLabel(userStateEnums.value, scope.row?.state, 'value', 'type')}>
                     {UtilsArray.getEnumLabel(userStateEnums.value, scope.row?.state)}
                 </el-tag>
             )
@@ -113,7 +113,7 @@ onMounted(() => {})
 </script>
 
 <template>
-    <div class="gui-system-user gui-pro-table">
+    <div class="h-full gui-system-user">
         <GuiProTable ref="GuiProTableRef" :columns="columns" :request-api="getTableList" :init-param="{}" :data-callback="dataCallback" row-key="id">
             <!-- 表格 header 按钮 -->
             <template #tableHeader="scope">

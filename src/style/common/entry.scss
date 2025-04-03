@@ -16,6 +16,14 @@
     color: var(--gui-color-text-regular);
 }
 
+.html-grey {
+    filter: grayscale(100%);
+}
+
+.html-weakenss {
+    filter: invert(80%);
+}
+
 .gui-layout {
     background-color: #eaeef3;
 
@@ -25,14 +33,3 @@
         }
     }
 }
-
-
-.html-grey {
-    filter: grayscale(100%);
-}
-
-.html-weakenss {
-    filter: invert(80%);
-}
-
-

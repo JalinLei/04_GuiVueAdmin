@@ -1,0 +1,32 @@
+/**********************************
+* @Desc: Form 表单组件
+ * @Author:  Jalin
+ **********************************/
+
+.el-form--inline {
+    .el-form-item {
+        & > .el-input,
+        .el-cascader,
+        .el-select,
+        .el-date-editor,
+        .el-autocomplete {
+            @apply w-52;
+        }
+    }
+}
+
+.el-form-item__label {
+    padding: 0 4px 0 0;
+    color: var(--gui-color-text-secondary);
+}
+
+.el-select__wrapper,
+.el-input__wrapper {
+    box-shadow: none;
+}
+
+.el-checkbox__inner::after {
+    left: 5px;
+    top: 2px;
+    border-width: 2px;
+}

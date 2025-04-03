@@ -35,6 +35,27 @@
     $menu: (
         'base-level-padding': 24px,
         'text-color': #424242,
+    ),
+    $border-radius: (
+        'base': 0px,
+        'small': 0px,
+        'round': 0px,
+        'circle': 0px
+    ),
+    $tag: (
+        'border-radius': 0px
+    ),
+    $input: (
+        'bg-color': #f1f3f4,
+        'border': 1px solid transparent,
+    ),
+    $fill-color: (
+        'blank': #f1f3f4
+    ),
+    $checkbox: (
+        'bg-color': #ffffff,
+        'input-width': 16px,
+        'input-height': 16px,
     )
 );
 

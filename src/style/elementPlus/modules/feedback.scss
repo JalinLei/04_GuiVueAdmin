@@ -1,0 +1,37 @@
+/**********************************
+* @Desc: Notice组件:
+       Alert 警告 |
+       Dialog 对话框 |
+       Drawer 抽屉 |
+       Loading 加载  |
+       Message 消息提示 |
+       MessageBox 弹框 |
+       Notification 通知 |
+       Popconfirm 气泡确认框 |
+       Popover 气泡卡片 |
+       Tooltip 文字提示 |
+ * @Author:  Jalin
+ **********************************/
+
+/* message | notification
+========================================================================== */
+.el-message,
+.el-notification {
+    // 设置 notification、message 层级在 loading 之上
+    z-index: 2400 !important;
+}
+
+/* Alert
+========================================================================== */
+.el-alert {
+    border: 1px solid;
+}
+
+/* Drawer
+========================================================================== */
+.el-drawer__header {
+    margin-bottom: 0 !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    @apply border-0 border-b border-solid border-gray-200;
+}

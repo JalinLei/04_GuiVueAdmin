@@ -110,7 +110,7 @@ onMounted(() => {})
 </script>
 
 <template>
-    <div class="gui-system-user gui-pro-table">
+    <div class="h-full gui-system-user">
         <GuiProTable ref="GuiProTableRef" :columns="columns" :request-api="getTableList" :init-param="{}" :data-callback="dataCallback" row-key="id">
             <!-- 表格 header 按钮 -->
             <template #tableHeader="scope">

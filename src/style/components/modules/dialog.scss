@@ -1,0 +1,62 @@
+/**********************************
+ * @Desc: 对话框Dialog
+ * @Author:  Jalin
+ **********************************/
+
+.gui-dialog {
+    &.el-dialog {
+        padding: 0;
+
+        .el-dialog__header {
+            padding: 15px 20px;
+            margin: 0;
+            border-bottom: 1px solid var(--el-border-color-lighter);
+
+            .el-dialog__title {
+                font-size: 17px;
+            }
+        }
+
+        .el-dialog__body,
+        .el-dialog__footer {
+            padding: 15px 20px;
+        }
+
+        .el-dialog__footer {
+            border-top: 1px solid var(--el-border-color-lighter);
+        }
+
+        // 表单
+        .el-form-item__content {
+            width: 400px;
+            flex: none;
+
+            // 上传
+            .el-upload.is-drag {
+                width: 300px;
+            }
+
+            .el-upload-dragger {
+                padding: 24px 8px;
+            }
+
+            .el-upload__tip {
+                margin-top: 0;
+            }
+
+            .el-upload-list {
+                margin: 0;
+            }
+
+            // 文本域
+            .el-textarea__inner {
+                min-height: 80px !important;
+            }
+
+            // Slider 滑块
+            > .el-slider {
+                margin: 0 10px 18px;
+            }
+        }
+    }
+}

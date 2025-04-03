@@ -6,6 +6,18 @@
 npm install
 ```
 
+### 安装Server的依赖包（模拟数据）
+
+```
+npm run apiI
+```
+
+### 运行Server
+
+```
+npm run apiS
+```
+
 ### Compiles and hot-reloads for development
 
 ```
@@ -37,6 +49,7 @@ web
  ├── babel.config.js
  ├── Dockerfile
  ├── favicon.ico
+ ├── server                     -- 模拟后台数据
  ├── index.html                 -- 主页面
  ├── limit.js                   -- 助手代码
  ├── package.json               -- 包管理器代码

@@ -9,7 +9,7 @@ import { reactive, ref, computed } from 'vue'
 import { useForm } from '@/hooks/modules/useForm'
 import { UtilsFile } from '@/utils'
 import _ from 'lodash'
-import {Api_Common_User_Add, Api_Common_User_Update, Api_Common_User_GetRoleList} from '@/api/common/user'
+import {Api_Common_User_Add, Api_Common_User_Update, Api_Common_User_GetRoleEnums} from '@/api/common/user'
 
 // 声明允许触发的事件
 const emit = defineEmits(['confirm', 'cancel'])
@@ -41,7 +41,7 @@ const modalType = computed(() => {
 const roleEnums = ref([])
 
 const getRoleEnums = async () => {
-    let {suc, data} = await Api_Common_User_GetRoleList()
+    let {suc, data} = await Api_Common_User_GetRoleEnums()
     if (suc) {
         roleEnums.value = data || []
     }
@@ -60,7 +60,6 @@ const submitAdd = async () => {
                 "roleIds": data.roleIds
             }
             let {suc} = await Api_Common_User_Add(params)
-
 
             if (suc) {
                 emit('confirm')
@@ -133,7 +132,7 @@ const closed = () => {
     emit('cancel')
 }
 const opened = () => {
-    // getRoleEnums()
+    getRoleEnums()
 }
 
 defineExpose({
