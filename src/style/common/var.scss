@@ -16,6 +16,12 @@
     --gui-color-text-regular: var(--gui-color-grey-800);       // 场景：表格、操作按钮文字，树形文字，表头文字
     --gui-color-text-secondary: var(--gui-color-grey-700);     // 场景：Label
     --gui-color-text-placeholder: var(--gui-color-grey-500);   // 场景：Placeholder、禁用、图标Icon
+
+    --gui-shadow-base: rgba(145, 158, 171, .2) 0px 2px 1px -1px, rgba(145, 158, 171, 0.14) 0px 1px 1px 0px, rgba(145, 158, 171, 0.12) 0px 1px 3px 0px; // 场景：布局容器、卡片列表
+    --gui-shadow-dark: 0 0 10px rgba(0, 0, 0, 0.12), 0 10px 10px rgba(0, 0, 0, 0.24);   // 场景：对话框
+    --gui-shadow-light: 1px -1px 5px rgba(0, 0, 0, 0.12), 0 5px 5px rgba(0, 0, 0, .12); // 场景：选择器、下拉菜单
+    --gui-shadow-hover: rgba(145, 158, 171, 0.24) 0 8px 16px 0;                         // 场景：卡片悬停选中效果
+    --gui-shadow-button: 0 3px 6px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);        // 场景：悬浮按钮
 }
 
 /* Dark Theme */

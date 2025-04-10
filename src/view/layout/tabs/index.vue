@@ -268,6 +268,12 @@
     )
 
     const initPage = () => {
+        // 全局监听 关闭当前 tab 后跳转到 指定 tab
+        emitter.on('closeThisPageAndGo', (targetRoute) => {
+            const currentId = getFmtString(route)
+            removeTab(currentId)
+            router.push(targetRoute)
+        })
         // 全局监听 关闭当前页面函数
         emitter.on('closeThisPage', () => {
             removeTab(getFmtString(route))

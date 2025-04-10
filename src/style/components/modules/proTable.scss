@@ -8,7 +8,7 @@
     padding: 20px;
     overflow-x: hidden;
     background-color: var(--el-bg-color);
-    box-shadow: 0 0 12px rgb(0 0 0 / 5%);
+    box-shadow: var(--gui-shadow-base);
 }
 
 /* ProTable 不需要 card 样式（在组件内使用 ProTable 会使用到） */
