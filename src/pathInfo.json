@@ -1,4 +1,5 @@
 {
+  "/src/view/component/pageSteps.vue": "ComponentPageSteps",
   "/src/view/dashboard/index.vue": "Dashboard",
   "/src/view/error/index.vue": "Error",
   "/src/view/error/reload.vue": "Reload",

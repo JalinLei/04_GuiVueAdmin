@@ -7,6 +7,27 @@
     &.el-dialog {
         padding: 0;
 
+        // 注释
+        .gui-dialog__notes {
+            margin-bottom: 24px;
+
+            .el-alert {
+                align-items: flex-start;
+                background-color: rgba(26, 115, 232, 0.1);
+            }
+            .el-alert .el-alert__description * {
+                font-size: 14px;
+                line-height: 22px;
+                color: var(--gui-color-text-secondary);
+            }
+            .el-alert .el-alert__icon.is-big {
+                font-size: 18px;
+                margin-top: 3px;
+                margin-right: 6px;
+                color: var(--el-color-primary);
+            }
+        }
+
         .el-dialog__header {
             padding: 15px 20px;
             margin: 0;

@@ -40,7 +40,7 @@ const columns = reactive([
         search: { el: 'select', key: 'state' },
         render: (scope) => {
             return (
-                <el-tag size="mini" type={UtilsArray.getEnumLabel(userStateEnums.value, scope.row?.state, 'value', 'type')}>
+                <el-tag size="small" type={UtilsArray.getEnumLabel(userStateEnums.value, scope.row?.state, 'value', 'type')}>
                     {UtilsArray.getEnumLabel(userStateEnums.value, scope.row?.state)}
                 </el-tag>
             )

@@ -16,9 +16,7 @@ import auth from '@/directive/auth'
 import { store } from '@/pinia'
 import App from './App.vue'
 import GuiCore from '@/core/config'
-
-const app = createApp(App)
-app.config.productionTip = false
+import { useRegionStore } from '@/pinia'
 
 console.log(
     `%c Powered By %c ${GuiCore.appName} %c`,
@@ -27,5 +25,19 @@ console.log(
     'background:transparent'
 )
 
-app.use(run).use(ElementPlus).use(store).use(auth).use(router).mount('#app')
-export default app
+// 封装成一个异步初始化函数
+async function bootstrap() {
+    const app = createApp(App)
+    app.config.productionTip = false
+
+    app.use(run).use(ElementPlus).use(store).use(auth)
+
+    const regionStore = useRegionStore()
+    await regionStore.fetchRegionConfig(); // 👈 等待配置加载完成
+
+    app.use(router).mount('#app')
+}
+
+await bootstrap()
+
+export default {}

@@ -1,3 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base; // 加载 Tailwind 的基础样式
+@tailwind components; // 加载可复用组件
+@tailwind utilities; // 加载一堆工具类（比如 text-center, p-4）

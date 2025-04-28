@@ -39,10 +39,26 @@ module.exports = {
                 hover: 'rgba(145, 158, 171, 0.24) 0 8px 16px 0',
                 button: '0 3px 6px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23)',
             },
-            borderColor: {
-                'table-border': 'var(--el-border-color-lighter)'
-            }
-        }
+            spacing: {
+                '0': '0px',
+                '1': '4px',   // 👈 这里重新定义 p-1 = 4px
+                '2': '8px',
+                '3': '12px',
+                '4': '16px',
+                '5': '20px',
+                '6': '24px',
+                '7': '28px',
+                '8': '32px',
+                '9': '36px',
+                '10': '40px',
+                '11': '44px',
+                '12': '48px',
+                '14': '56px',
+                '16': '64px',
+                '20': '80px',
+                '24': '96px',
+            },
+        },
     },
     darkMode: 'class',
     plugins: []

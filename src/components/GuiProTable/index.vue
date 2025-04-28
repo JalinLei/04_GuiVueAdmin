@@ -21,7 +21,7 @@
                     <slot name="toolButton">
                         <el-space>
                             <el-tooltip v-if="showToolButton('refresh')" content="刷新" placement="top">
-                                <el-button :icon="Refresh" circle @click="getTableList" />
+                                <el-button :icon="Refresh" circle @click="handleRefresh" />
                             </el-tooltip>
                             <el-tooltip v-if="showToolButton('setting') && columns.length" content="列设置" placement="top">
                                 <el-button circle :icon="Operation" @click="openColSetting" />

@@ -390,7 +390,7 @@
 
 <style lang="scss" scoped>
     .contextmenu {
-        @apply bg-white dark:bg-slate-900 w-28 m-0 py-2.5 px-0 border border-gray-200 text-sm shadow-md rounded absolute z-50 border-solid dark:border-slate-800;
+        @apply bg-white dark:bg-slate-900 w-[300px] m-0 py-2.5 px-0 border border-gray-200 text-sm shadow-md rounded absolute z-50 border-solid dark:border-slate-800;
     }
 
     .contextmenu li {

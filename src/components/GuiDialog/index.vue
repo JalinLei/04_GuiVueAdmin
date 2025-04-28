@@ -15,7 +15,17 @@
             </header>
         </template>
 
-        <slot />
+        <!-- 对话框注释 -->
+        <div class="gui-dialog__notes" v-if="hasNotesSlot && modalOptions.showNotesSlot">
+            <el-alert type="info" show-icon :closable="false">
+                <slot name="notes"></slot>
+            </el-alert>
+        </div>
+
+        <!-- 默认对话框内容 -->
+        <div class="gui-dialog__body">
+            <slot />
+        </div>
 
         <!-- 底部按钮 -->
         <template #footer v-if="modalOptions.showFooter">
@@ -30,8 +40,9 @@
 </template>
 
 <script setup>
-    import { ref, computed, nextTick } from 'vue'
+    import { ref, computed, nextTick, useSlots } from 'vue'
 
+    const slots = useSlots()
     const props = defineProps({
         width: {
             type: String,
@@ -85,8 +96,16 @@
         dialogProps: {
             type: Object,
             default: () => ({})
+        },
+        // 控制是否显示注释插槽
+        showNotesSlot: {
+            type: Boolean,
+            default: true
         }
     })
+
+    // 判断是否有注释插槽
+    const hasNotesSlot = !!slots.notes
     // 声明一个dialogVisible 变量，用于控制模态框的显示与隐藏
     const visible = ref(false)
     // 声明一个modalOptions变量，用于存储模态框的配置信息

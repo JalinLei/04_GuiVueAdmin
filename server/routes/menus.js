@@ -134,7 +134,77 @@ router.get('/GetMenuList', function(req, res, next) {
                 ]
             },
             {
-                "id": 7,
+                "id": 3,
+                "parentId": 0,
+                "path": "component",
+                "hidden": false,
+                "name": "ComponentLayout",
+                "component": "view/routerHolder.vue",
+                "sort": 5,
+                "meta": {
+                    "keepAlive": false,
+                    "title": "组件管理",
+                    "icon": null,
+                    "defaultMenu": false,
+                    "activeName": ""
+                },
+                "children": [
+                    {
+                        "id": 40,
+                        "parentId": 4,
+                        "path": "steps",
+                        "hidden": false,
+                        "name": "ComponentPageSteps",
+                        "component": "view/component/pageSteps.vue",
+                        "sort": 1,
+                        "meta": {
+                            "keepAlive": false,
+                            "title": "步骤条",
+                            "icon": null,
+                            "defaultMenu": false
+                        },
+                        "children": null
+                    },
+
+                ]
+            },
+            {
+                "id": 3,
+                "parentId": 0,
+                "path": "other",
+                "hidden": false,
+                "name": "OtherLayout",
+                "component": "view/routerHolder.vue",
+                "sort": 3,
+                "meta": {
+                    "keepAlive": false,
+                    "title": "其他模块",
+                    "icon": null,
+                    "defaultMenu": false,
+                    "activeName": ""
+                },
+                "children": [
+                    {
+                        "id": 31,
+                        "parentId": 3,
+                        "path": "tailwind",
+                        "hidden": false,
+                        "name": "OtherTailwind",
+                        "component": "view/other/tailwind.vue",
+                        "sort": 1,
+                        "meta": {
+                            "keepAlive": false,
+                            "title": "Tailwind",
+                            "icon": null,
+                            "defaultMenu": false
+                        },
+                        "children": null
+                    },
+
+                ]
+            },
+            {
+                "id": 10,
                 "parentId": 0,
                 "path": "system",
                 "hidden": false,
@@ -198,7 +268,7 @@ router.get('/GetMenuList', function(req, res, next) {
                         "children": null
                     }
                 ]
-            }
+            },
         ]
     });
 })

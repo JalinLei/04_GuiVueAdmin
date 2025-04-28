@@ -82,8 +82,8 @@ service.interceptors.response.use(
 
         // 正常的 JSON 处理
         if (response.data.code === 200 || response.headers.returnCode === 'SUCCESS') {
-            if (response.headers.msg) {
-                response.data.msg = decodeURI(response.headers.msg)
+            if (response.headers.message) {
+                response.data.message = decodeURI(response.headers.message)
             }
             return {
                 ...response.data,
@@ -92,10 +92,10 @@ service.interceptors.response.use(
         } else {
             ElMessage({
                 showClose: true,
-                message: response.data.msg || decodeURI(response.headers.msg),
+                message: response.data.message || decodeURI(response.headers.message),
                 type: 'error'
             })
-            return response.data.msg ? { ...response.data, suc: false } : response
+            return response.data.message ? { ...response.data, suc: false } : response
         }
     },
     (error) => {
