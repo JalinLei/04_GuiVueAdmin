@@ -55,7 +55,7 @@
                     <el-table-column
                         v-if="item.type && columnTypes.includes(item.type)"
                         v-bind="item"
-                        :align="item.align ?? 'center'"
+                        :align="item.align ?? 'left'"
                         :reserve-selection="item.type === 'selection'"
                     >
                         <template #default="scope">

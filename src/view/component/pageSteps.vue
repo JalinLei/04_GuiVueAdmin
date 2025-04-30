@@ -3,7 +3,7 @@
         <gui-page-steps :active="stepActive" :steps-data="['步骤一', '步骤二', '步骤三']">
             <template v-slot:default>
                 <div v-show="stepActive === 0">
-                    第一步操作
+                    <stepOneForm />
                 </div>
 
                 <div v-show="stepActive === 1">
@@ -38,6 +38,7 @@
     import { ref } from 'vue'
     import { GuiPageSteps } from '@/components'
     import { ElMessage } from 'element-plus'
+    import stepOneForm from './components/form.vue'
 
     defineOptions({
         name: 'ComponentPageSteps'

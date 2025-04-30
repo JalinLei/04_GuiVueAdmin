@@ -9,6 +9,10 @@
     height: 100%;
 }
 
+body {
+    min-width: 1366px;
+}
+
 #app {
     height: 100vh;
     overflow: hidden;
@@ -31,5 +35,30 @@
         &.is-tabs {
             height: calc(100% - 16px - 49px) !important;
         }
+    }
+}
+
+// Title Card
+.gui-title__card {
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    font-size: var(--el-font-size-base);
+    font-weight: 700;
+    color: var(--el-color-primary);
+    padding-left: 12px;
+    margin: 0;
+    position: relative;
+
+    &::before {
+        content: "";
+        width: 4px;
+        height: 16px;
+        background-color: var(--el-color-primary);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
     }
 }

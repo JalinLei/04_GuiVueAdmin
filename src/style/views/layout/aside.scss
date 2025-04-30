@@ -4,6 +4,10 @@
  */
 
 .gui-aside-left {
+    .el-menu {
+        background-color: transparent;
+    }
+
     .el-menu--vertical .el-menu-item {
         border-radius: 0;
     }

@@ -1,48 +1,43 @@
 <template>
     <div v-if="columns.length" class="pro-table__card table-search">
-        <el-form ref="formRef" :model="searchParam">
-            <Grid ref="gridRef" :collapsed="collapsed" :gap="[20, 0]" :cols="searchCol">
-                <GridItem v-for="(item, index) in columns" :key="item.prop" v-bind="getResponsive(item)" :index="index">
-                    <el-form-item>
-                        <template #label>
-                            <el-space :size="4">
-                                <span>
-                                  <span>{{ `${item.search?.label ?? item.label}` }}</span>
-                                  <el-tooltip v-if="item.search?.tooltip" effect="dark" :content="item.search?.tooltip" placement="top">
+        <div ref="tableSearchL" class="table-search__l" :style="{ height: collapsed && showCollapseButton ? '56px' : 'auto' }">
+            <el-form ref="formRef" :model="searchParam" :inline="true">
+                <el-form-item v-for="(item, index) in columns" :key="item.prop" :index="index">
+                    <template #label>
+                        <el-space :size="4">
+                            <span>
+                                <span>{{ `${item.search?.label ?? item.label}` }}</span>
+                                <el-tooltip v-if="item.search?.tooltip" effect="dark" :content="item.search?.tooltip" placement="top">
                                     <i :class="'iconfont icon-yiwen'"></i>
-                                  </el-tooltip>
-                                </span>
-                            </el-space>
-                            <span>：</span>
-                        </template>
+                                </el-tooltip>
+                            </span>
+                        </el-space>
+                        <span>：</span>
+                    </template>
 
-                        <SearchFormItem :column="item" :search-param="searchParam" />
-                    </el-form-item>
-                </GridItem>
-                <GridItem suffix>
-                    <div class="operation">
-                        <el-button type="primary" :icon="Search" @click="search"> 搜索</el-button>
-                        <el-button :icon="Delete" @click="reset"> 重置</el-button>
-                        <el-button v-if="showCollapse" type="primary" link class="search-isOpen"
-                                   @click="collapsed = !collapsed">
-                            {{ collapsed ? '展开' : '合并' }}
-                            <el-icon class="el-icon--right">
-                                <component :is="collapsed ? ArrowDown : ArrowUp"></component>
-                            </el-icon>
-                        </el-button>
-                    </div>
-                </GridItem>
-            </Grid>
-        </el-form>
+                    <SearchFormItem :column="item" :search-param="searchParam" />
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="table-search__r">
+            <!-- 控制按钮是否显示 -->
+            <el-button v-if="showCollapseButton" type="primary" link class="search-isOpen" @click="toggleCollapse">
+                {{ collapsed ? '展开' : '合并' }}
+                <el-icon class="el-icon--right">
+                    <component :is="collapsed ? ArrowDown : ArrowUp"></component>
+                </el-icon>
+            </el-button>
+
+            <el-button type="primary" @click="search"> 搜索</el-button>
+            <el-button @click="reset"> 重置</el-button>
+        </div>
     </div>
 </template>
-<script setup name="GuiSearchForm">
-    import { computed, ref } from 'vue'
 
+<script setup name="GuiSearchForm">
+    import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
     import { Delete, Search, ArrowDown, ArrowUp } from '@element-plus/icons-vue'
     import SearchFormItem from './components/SearchFormItem.vue'
-    import Grid from '@/components/GuiGrid/index.vue'
-    import GridItem from '@/components/GuiGrid/components/GridItem.vue'
 
     // 默认值
     const props = defineProps({
@@ -56,55 +51,98 @@
         },
         searchCol: {
             type: [Number, Object],
-            default: () => {
-            }
+            default: () => {}
         },
         search: {
             type: Function,
-            default: () => {
-            }
+            default: () => {}
         },
         reset: {
             type: Function,
-            default: () => {
-            }
+            default: () => {}
         }
     })
-
-    // 获取响应式设置
-    const getResponsive = item => {
-        return {
-            span: item.search?.span,
-            offset: item.search?.offset ?? 0,
-            xs: item.search?.xs,
-            sm: item.search?.sm,
-            md: item.search?.md,
-            lg: item.search?.lg,
-            xl: item.search?.xl
-        }
-    }
 
     // 是否默认折叠搜索项
     const collapsed = ref(true)
+    const showCollapseButton = ref(false)
 
-    // 获取响应式断点
-    const gridRef = ref()
-    const breakPoint = computed(() => gridRef.value?.breakPoint)
+    // table-search__l 容器引用
+    const tableSearchL = ref(null)
+    const formItems = ref([])
 
-    // 判断是否显示 展开/合并 按钮
-    const showCollapse = computed(() => {
-        let show = false
-        props.columns.reduce((prev, current) => {
-            prev +=
-                (current.search[breakPoint.value]?.span ?? current.search?.span ?? 1) +
-                (current.search[breakPoint.value]?.offset ?? current.search?.offset ?? 0)
-            if (typeof props.searchCol !== 'number') {
-                if (prev >= props.searchCol[breakPoint.value]) show = true
-            } else {
-                if (prev >= props.searchCol) show = true
+    // 切换折叠状态
+    const toggleCollapse = () => {
+        collapsed.value = !collapsed.value
+    }
+
+    // 计算和判断是否需要显示折叠按钮
+    const checkIfCollapseNeeded = () => {
+        nextTick(() => {
+            if (tableSearchL.value && formItems.value.length) {
+                // 获取 .table-search__l 的可视宽度
+                const containerWidth = tableSearchL.value.clientWidth
+                // 计算所有 el-form-item 的总宽度
+                const totalWidth = formItems.value.reduce((total, item) => total + item.clientWidth, 0)
+
+                // 如果 el-form-item 总宽度大于容器宽度，则显示折叠按钮
+                showCollapseButton.value = totalWidth > containerWidth
             }
-            return prev
-        }, 0)
-        return show
+        })
+    }
+
+    // 监听窗口尺寸变化
+    const resizeObserver = new ResizeObserver(() => {
+        checkIfCollapseNeeded()
+    })
+
+    // 初始化时执行
+    onMounted(() => {
+        // 获取所有 el-form-item 的引用
+        formItems.value = Array.from(tableSearchL.value.querySelectorAll('.el-form-item'))
+        // 监听容器宽度变化
+        if (tableSearchL.value) {
+            resizeObserver.observe(tableSearchL.value)
+        }
+        // 初始检查是否需要显示折叠按钮
+        checkIfCollapseNeeded()
+    })
+
+    // 清理 ResizeObserver
+    onUnmounted(() => {
+        if (resizeObserver && tableSearchL.value) {
+            resizeObserver.unobserve(tableSearchL.value)
+        }
     })
 </script>
+
+<style lang="scss" scoped>
+    .table-search {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .table-search__l {
+        flex: 1;
+        overflow: hidden;
+        transition: height 0.3s ease-in-out;
+
+        ::v-deep(.el-form-item__content) {
+            width: 210px;
+        }
+
+        ::v-deep(.el-form-item__label) {
+            min-width: 105px;
+        }
+
+        ::v-deep(.el-form-item) {
+            margin-bottom: 24px;
+            margin-right: 12px;
+        }
+    }
+
+    .table-search__r {
+        width: 300px;
+        text-align: right;
+    }
+</style>

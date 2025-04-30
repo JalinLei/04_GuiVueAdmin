@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var rolesRouter = require('./routes/roles')
 var menusRouter = require('./routes/menus')
-
+var componentRouter = require('./routes/component')
 var app = express()
 
 // view engine setup
@@ -25,7 +25,7 @@ app.use('/', indexRouter)
 app.use('/api/User', usersRouter)
 app.use('/api/Role', rolesRouter)
 app.use('/api/Menu', menusRouter)
-
+app.use('/api/Component', componentRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404))

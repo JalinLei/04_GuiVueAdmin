@@ -8,46 +8,41 @@
         'white': #ffffff,
         'black': #000000,
         'primary': (
-          'base': #1A73E8
+            'base': #1a73e8
         ),
         'success': (
-          'base': #34A853
+            'base': #34a853
         ),
         'warning': (
-          'base': #F7A825
+            'base': #f7a825
         ),
         'danger': (
-          'base': #EC414D
+            'base': #ec414d
         ),
         'error': (
-          'base': #EC414D
+            'base': #ec414d
         ),
         'info': (
-          'base': #BDBDBD
+            'base': #bdbdbd
         )
     ),
     $text-color: (
         'primary': #212121,
         'regular': #424242,
         'secondary': #616161,
-        'placeholder': #9e9e9e,
+        'placeholder': #9e9e9e
     ),
     $menu: (
         'base-level-padding': 24px,
-        'text-color': #424242,
+        'text-color': #424242
     ),
-    $border-radius: (
-        'base': 0px,
-        'small': 0px,
-        'round': 0px,
-        'circle': 0px
-    ),
+    $border-radius: (),
     $tag: (
         'border-radius': 0px
     ),
     $input: (
         'bg-color': #f1f3f4,
-        'border': 1px solid transparent,
+        'border': 1px solid transparent
     ),
     $fill-color: (
         'blank': #f1f3f4
@@ -55,13 +50,13 @@
     $checkbox: (
         'bg-color': #ffffff,
         'input-width': 16px,
-        'input-height': 16px,
+        'input-height': 16px
     ),
     $radio: (
-        'input-border-radius': 100%,
+        'input-border-radius': 100%
     )
 );
 
-@use "element-plus/theme-chalk/src/index" as *;
+@use 'element-plus/theme-chalk/src/index' as *;
 
 // import 'element-plus/dist/index.css'

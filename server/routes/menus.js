@@ -165,7 +165,22 @@ router.get('/GetMenuList', function(req, res, next) {
                         },
                         "children": null
                     },
-
+                    {
+                        "id": 41,
+                        "parentId": 4,
+                        "path": "table",
+                        "hidden": false,
+                        "name": "ComponentPageTable",
+                        "component": "view/component/proTable.vue",
+                        "sort": 2,
+                        "meta": {
+                            "keepAlive": false,
+                            "title": "表格",
+                            "icon": null,
+                            "defaultMenu": false
+                        },
+                        "children": null
+                    },
                 ]
             },
             {

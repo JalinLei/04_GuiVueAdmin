@@ -1,5 +1,6 @@
 {
   "/src/view/component/pageSteps.vue": "ComponentPageSteps",
+  "/src/view/component/proTable.vue": "SystemUser",
   "/src/view/dashboard/index.vue": "Dashboard",
   "/src/view/error/index.vue": "Error",
   "/src/view/error/reload.vue": "Reload",
@@ -20,6 +21,7 @@
   "/src/view/layout/setting/title.vue": "layoutSettingTitle",
   "/src/view/layout/tabs/index.vue": "GuiTabs",
   "/src/view/login/index.vue": "Login",
+  "/src/view/other/tailwind.vue": "OtherTailwind",
   "/src/view/routerHolder.vue": "RouterHolder",
   "/src/view/system/components/menu/components-cascader.vue": "ComponentsCascader",
   "/src/view/system/components/menu/icon.vue": "Icon",

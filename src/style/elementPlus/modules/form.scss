@@ -30,3 +30,10 @@
     top: 2px;
     border-width: 2px;
 }
+.el-date-editor,
+.el-input {
+    --el-input-hover-border-color: var(--el-color-primary);
+}
+.el-date-editor.el-input__wrapper {
+    box-shadow: none;
+}

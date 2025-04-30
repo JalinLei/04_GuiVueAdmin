@@ -1,5 +1,5 @@
 <template>
-    <div class="gui-layout w-screen h-screen">
+    <div class="gui-layout w-full h-full">
         <el-watermark
             v-if="config.show_watermark"
             :font="font"
