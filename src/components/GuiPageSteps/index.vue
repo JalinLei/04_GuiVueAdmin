@@ -20,33 +20,33 @@
 </script>
 
 <template>
-<div class="gui-page-steps h-full shadow-base bg-white">
-    <template v-if="isShowHeader">
-        <div class="px-[16px] page-steps__h h-[65px]">
-            <div class="h-[calc(100%-1px)] flex items-center">
-                <el-steps :active="active" simple class="gui-steps">
-                    <el-step v-for="(stepItem, index) in stepsData" :title="stepItem" />
-                </el-steps>
+    <div class="gui-page-steps h-full shadow-base bg-white">
+        <template v-if="isShowHeader">
+            <div class="px-[16px] page-steps__h h-[65px]">
+                <div class="h-[calc(100%-1px)] flex items-center">
+                    <el-steps :active="active" simple class="gui-steps">
+                        <el-step v-for="(stepItem, index) in stepsData" :key="index" :title="stepItem" />
+                    </el-steps>
+                </div>
+                <el-divider></el-divider>
             </div>
-            <el-divider></el-divider>
-        </div>
-    </template>
+        </template>
 
-    <div class="page-steps__b h-[calc(100%-64px-64px-2px)] py-[16px]">
-        <div class="page-steps__c h-full overflow-auto px-[16px]">
-            <slot></slot>
+        <div class="page-steps__b h-[calc(100%-64px-64px-2px)] py-[16px] overflow-auto">
+            <div class="page-steps__c h-full overflow-auto px-[16px]">
+                <slot></slot>
+            </div>
         </div>
+
+        <template v-if="isShowFooter">
+            <div class="h-[65px] px-[16px]">
+                <el-divider></el-divider>
+                <div class="h-[calc(100%-1px)] page-steps__f flex items-center">
+                    <slot name="footer"></slot>
+                </div>
+            </div>
+        </template>
     </div>
-
-    <template v-if="isShowFooter">
-       <div class="h-[65px] px-[16px]">
-           <el-divider></el-divider>
-           <div class="h-[calc(100%-1px)] page-steps__f flex items-center">
-               <slot name="footer"></slot>
-           </div>
-       </div>
-    </template>
-</div>
 </template>
 
 <style lang="scss">
@@ -106,36 +106,36 @@
 
             .el-step:nth-child(1) .el-step__head.is-wait .el-step__icon::before,
             .el-step:nth-child(1) .el-step__head.is-process .el-step__icon::before {
-                content: "1";
+                content: '1';
             }
 
             .el-step:nth-child(2) .el-step__head.is-wait .el-step__icon::before,
             .el-step:nth-child(2) .el-step__head.is-process .el-step__icon::before {
-                content: "2";
+                content: '2';
             }
 
             .el-step:nth-child(3) .el-step__head.is-wait .el-step__icon::before,
             .el-step:nth-child(3) .el-step__head.is-process .el-step__icon::before {
-                content: "3";
+                content: '3';
             }
 
             .el-step:nth-child(4) .el-step__head.is-wait .el-step__icon::before,
             .el-step:nth-child(4) .el-step__head.is-process .el-step__icon::before {
-                content: "4";
+                content: '4';
             }
 
             .el-step:nth-child(5) .el-step__head.is-wait .el-step__icon::before,
             .el-step:nth-child(5) .el-step__head.is-process .el-step__icon::before {
-                content: "5";
+                content: '5';
             }
 
             .el-step:nth-child(6) .el-step__head.is-wait .el-step__icon::before,
             .el-step:nth-child(6) .el-step__head.is-process .el-step__icon::before {
-                content: "6";
+                content: '6';
             }
 
             .el-step .el-step__head.is-finish .el-step__icon::before {
-                content: "✔";
+                content: '✔';
             }
 
             .el-step .el-step__head.is-finish .el-step__icon.is-text,
@@ -143,6 +143,19 @@
                 background-color: var(--el-color-primary);
                 color: var(--el-color-white);
                 border-color: var(--el-color-primary);
+            }
+        }
+
+        .el-form-item__content {
+            .el-select,
+            .el-input,
+            .el-date-editor {
+                width: 400px;
+            }
+
+            .el-date-editor.el-date-editor--timerange,
+            .el-date-editor.el-date-editor--datetimerange {
+                flex-grow: initial;
             }
         }
     }

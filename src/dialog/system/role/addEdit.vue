@@ -139,16 +139,16 @@
 <template>
     <GuiDialog ref="modalRef" @closed="closed" @opened="opened">
         <el-form ref="formRef" :model="formData" :rules="rules" :label-width="formLabelWidth" status-icon>
-            <el-form-item label="角色名称" prop="name">
+            <el-form-item label="角色名称：" prop="name">
                 <el-input v-model="formData.name" />
             </el-form-item>
-            <el-form-item label="角色状态" prop="state">
+            <el-form-item label="角色状态：" prop="state">
                 <el-radio-group v-model="formData.state">
                     <el-radio :value="1">正常</el-radio>
                     <el-radio :value="0">禁用</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="菜单权限" prop="menuIds">
+            <el-form-item label="菜单权限：" prop="menuIds">
                 <el-tree-select
                     v-model="formData.menuIds"
                     :data="menuEnums"
@@ -167,7 +167,7 @@
                     }"
                 />
             </el-form-item>
-            <el-form-item label="备注" prop="remark">
+            <el-form-item label="备注：" prop="remark">
                 <el-input type="textarea" v-model="formData.remark" placeholder="" />
             </el-form-item>
         </el-form>

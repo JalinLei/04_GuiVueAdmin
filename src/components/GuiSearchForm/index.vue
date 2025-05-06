@@ -99,13 +99,17 @@
     // 初始化时执行
     onMounted(() => {
         // 获取所有 el-form-item 的引用
-        formItems.value = Array.from(tableSearchL.value.querySelectorAll('.el-form-item'))
-        // 监听容器宽度变化
-        if (tableSearchL.value) {
-            resizeObserver.observe(tableSearchL.value)
+        if (props.columns && props.columns.length) {
+            formItems.value = Array.from(tableSearchL.value?.querySelectorAll('.el-form-item'))
+
+            // 监听容器宽度变化
+            if (tableSearchL.value) {
+                resizeObserver.observe(tableSearchL.value)
+            }
+
+            // 初始检查是否需要显示折叠按钮
+            checkIfCollapseNeeded()
         }
-        // 初始检查是否需要显示折叠按钮
-        checkIfCollapseNeeded()
     })
 
     // 清理 ResizeObserver

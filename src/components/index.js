@@ -16,6 +16,7 @@ import GuiSearchForm from './GuiSearchForm/index.vue'
 import GuiSvgIcon from './GuiSvgIcon/svgIcon.vue'
 import GuiWarningBar from './GuiWarningBar/warningBar.vue'
 import GuiPageSteps from './GuiPageSteps/index.vue'
+import GuiActionButtons from './GuiActionButtons/index.vue'
 
 export {
     GuiCharts,
@@ -30,5 +31,6 @@ export {
     GuiSearchForm,
     GuiSvgIcon,
     GuiWarningBar,
-    GuiPageSteps
+    GuiPageSteps,
+    GuiActionButtons
 }

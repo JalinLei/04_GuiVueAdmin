@@ -144,19 +144,19 @@ defineExpose({
 <template>
     <GuiDialog ref="modalRef" @closed="closed" @opened="opened">
         <el-form ref="formRef" :model="formData" :rules="rules" :label-width="formLabelWidth" status-icon>
-            <el-form-item label="用户名称" prop="userName">
+            <el-form-item label="用户名称：" prop="userName">
                 <el-input v-model="formData.userName" />
             </el-form-item>
-            <el-form-item label="密码" prop="password">
+            <el-form-item label="密码：" prop="password">
                 <el-input type="password" show-password v-model="formData.password" />
             </el-form-item>
-            <el-form-item label="状态" prop="state">
+            <el-form-item label="状态：" prop="state">
                 <el-radio-group v-model="formData.state">
                     <el-radio :value="1">启用</el-radio>
                     <el-radio :value="0">禁用</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="角色权限" prop="roleIds">
+            <el-form-item label="角色权限：" prop="roleIds">
                 <el-select
                     v-model="formData.roleIds"
                     multiple
@@ -167,7 +167,7 @@ defineExpose({
                     <el-option v-for="item in roleEnums" :key="item.id" :label="item.name" :value="item.id"/>
                 </el-select>
             </el-form-item>
-            <el-form-item label="备注" prop="remark">
+            <el-form-item label="备注：" prop="remark">
                 <el-input type="textarea" v-model="formData.remark" placeholder="" />
             </el-form-item>
         </el-form>

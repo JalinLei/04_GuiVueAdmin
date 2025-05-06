@@ -56,7 +56,7 @@
             >
                 <el-row class="w-full">
                     <el-col :span="16">
-                        <el-form-item label="文件路径" prop="component">
+                        <el-form-item label="文件路径：" prop="component">
                             <components-cascader
                                 :component="form.component"
                                 @change="fmtComponent"
@@ -73,14 +73,14 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="展示名称" prop="meta.title">
+                        <el-form-item label="展示名称：" prop="meta.title">
                             <el-input v-model="form.meta.title" autocomplete="off" />
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row class="w-full">
                     <el-col :span="8">
-                        <el-form-item label="路由Name" prop="path">
+                        <el-form-item label="路由Name：" prop="path">
                             <el-input
                                 v-model="form.name"
                                 autocomplete="off"
@@ -90,7 +90,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item prop="path">
+                        <el-form-item prop="path：">
                             <template #label>
                 <span style="display: inline-flex; align-items: center">
                   <span>路由Path</span>
@@ -111,7 +111,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="是否隐藏">
+                        <el-form-item label="是否隐藏：">
                             <el-select
                                 v-model="form.hidden"
                                 style="width: 100%"
@@ -125,7 +125,7 @@
                 </el-row>
                 <el-row class="w-full">
                     <el-col :span="8">
-                        <el-form-item label="父节点ID">
+                        <el-form-item label="父节点ID：">
                             <el-cascader
                                 v-model="form.parentId"
                                 style="width: 100%"
@@ -144,12 +144,12 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="图标" prop="meta.icon">
+                        <el-form-item label="图标：" prop="meta.icon">
                             <icon v-model="form.meta.icon" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="排序标记" prop="sort">
+                        <el-form-item label="排序标记：" prop="sort">
                             <el-input v-model.number="form.sort" autocomplete="off" />
                         </el-form-item>
                     </el-col>
@@ -159,16 +159,16 @@
                         <el-form-item prop="meta.activeName">
                             <template #label>
                                 <div>
-                                    <span> 高亮菜单 </span>
+                                    <span>高亮菜单</span>
                                     <el-tooltip
                                         content="注：当到达此路由时候，指定左侧菜单指定name会处于活跃状态（亮起），可为空，为空则为本路由Name。"
                                         placement="top"
-                                        effect="light"
                                     >
-                                        <el-icon>
+                                        <el-icon class="ml-1" style="vertical-align: middle;">
                                             <QuestionFilled />
                                         </el-icon>
                                     </el-tooltip>
+                                    ：
                                 </div>
                             </template>
                             <el-input
@@ -179,7 +179,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="KeepAlive" prop="meta.keepAlive">
+                        <el-form-item label="KeepAlive：" prop="meta.keepAlive">
                             <el-select
                                 v-model="form.meta.keepAlive"
                                 style="width: 100%"
@@ -191,7 +191,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="CloseTab" prop="meta.closeTab">
+                        <el-form-item label="CloseTab：" prop="meta.closeTab">
                             <el-select
                                 v-model="form.meta.closeTab"
                                 style="width: 100%"
@@ -207,16 +207,17 @@
                     <el-col :span="8">
                         <el-form-item>
                             <template #label>
-                                <div><span> 是否为基础页面 </span>
+                                <div>
+                                    <span>是否为基础页面</span>
                                     <el-tooltip
                                         content="此项选择为是，则不会展示左侧菜单以及顶部信息。"
                                         placement="top"
-                                        effect="light"
                                     >
-                                        <el-icon>
+                                        <el-icon class="ml-1" style="vertical-align: middle;">
                                             <QuestionFilled />
                                         </el-icon>
                                     </el-tooltip>
+                                    ：
                                 </div>
                             </template>
 

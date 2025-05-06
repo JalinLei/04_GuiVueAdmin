@@ -49,8 +49,16 @@
 
         // 表单
         .el-form-item__content {
-            width: 400px;
-            flex: none;
+            .el-select,
+            .el-input,
+            .el-date-editor {
+                width: 300px;
+            }
+
+            .el-date-editor.el-date-editor--timerange,
+            .el-date-editor.el-date-editor--datetimerange {
+                flex-grow: initial;
+            }
 
             // 上传
             .el-upload.is-drag {
@@ -71,7 +79,7 @@
 
             // 文本域
             .el-textarea__inner {
-                min-height: 80px !important;
+                width: 300px;
             }
 
             // Slider 滑块

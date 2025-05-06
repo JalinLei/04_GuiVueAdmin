@@ -6,7 +6,7 @@
 <script setup lang="jsx">
     import { reactive, ref, onMounted } from 'vue'
     import { CirclePlus } from '@element-plus/icons-vue'
-    import { GuiProTable } from '@/components'
+    import { GuiProTable, GuiActionButtons } from '@/components'
     import { Api_Component_GetPageList } from '@/api/component'
     import { UtilsArray, UtilsDatetime } from '@/utils'
     import { DialogSysTemUserAddEdit } from '@/dialog/system'
@@ -64,7 +64,7 @@
             prop: 'operation',
             label: '操作',
             fixed: 'right',
-            minWidth: 100
+            width: 140
         }
     ])
     const getTableList = (params) => {
@@ -126,10 +126,14 @@
 
             <!-- 表格操作 -->
             <template #operation="scope">
-                <div style="display: flex">
-                    <el-button type="primary" link @click="handleEdit(scope.row)">编辑</el-button>
-                    <el-button type="primary" link @click="handleDelete(scope.row)">删除</el-button>
-                </div>
+                <GuiActionButtons :buttons="[
+                    {   label: '编辑',
+                        onClick: () => handleEdit(scope.row),
+                    },
+                    {   label: '删除',
+                        onClick: () => handleDelete(scope.row),
+                    }
+                ]" />
             </template>
         </GuiProTable>
 

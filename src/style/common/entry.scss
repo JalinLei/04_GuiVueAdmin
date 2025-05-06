@@ -10,11 +10,11 @@
 }
 
 body {
-    min-width: 1366px;
+    // min-width: 1366px;
 }
 
 #app {
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     font-weight: 400 !important;
     color: var(--gui-color-text-regular);

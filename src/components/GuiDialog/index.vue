@@ -46,7 +46,7 @@
     const props = defineProps({
         width: {
             type: String,
-            default: '650px'
+            default: '560px'
         },
         title: {
             type: String,

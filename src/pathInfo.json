@@ -1,4 +1,5 @@
 {
+  "/src/view/component/components/form.vue": "Form",
   "/src/view/component/pageSteps.vue": "ComponentPageSteps",
   "/src/view/component/proTable.vue": "SystemUser",
   "/src/view/dashboard/index.vue": "Dashboard",
