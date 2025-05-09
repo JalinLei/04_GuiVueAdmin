@@ -45,7 +45,7 @@ body {
     line-height: 48px;
     font-size: var(--el-font-size-base);
     font-weight: 700;
-    color: var(--el-color-primary);
+    color: var(--gui-color-text-primary);
     padding-left: 12px;
     margin: 0;
     position: relative;
@@ -60,5 +60,12 @@ body {
         top: 0;
         bottom: 0;
         margin: auto;
+    }
+	
+	&.not-sign {
+        padding-left: 0;
+        &::before {
+            display: none;
+        }
     }
 }
