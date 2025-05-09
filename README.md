@@ -81,7 +81,6 @@ web
  │   │   │   └── element_visiable.scss  -- 此处可以全局覆盖 element-plus 样式
  │   │   └── views
  │   ├── utils                  -- 方法包库
- │   │   ├── modules            -- 模块
  │   │   ├── common             -- 动态路由相关
  │   │   │   ├── asyncRouter.js     -- 动态路由相关
  │   │   │   ├── bus.js             -- 全局mitt声明文件
