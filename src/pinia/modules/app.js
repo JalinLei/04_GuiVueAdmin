@@ -3,6 +3,13 @@ import { ref, watchEffect, reactive } from 'vue'
 import { setBodyPrimaryColor } from '@/utils/common/format'
 import { useDark, usePreferredDark } from '@vueuse/core'
 
+// 获取系统配置文件
+async function loadAppConfig() {
+    const res = await fetch(`/config/app.json`)
+    const config = await res.json()
+    return config
+}
+
 export const useAppStore = defineStore('app', () => {
     const device = ref('')
     const drawerSize = ref('')
@@ -110,6 +117,28 @@ export const useAppStore = defineStore('app', () => {
         setBodyPrimaryColor(config.primaryColor, isDark.value ? 'dark' : 'light')
     })
 
+    // 是否在加载中
+    const loading = ref(false)
+
+    // 系统配置数据（系统名称、系统描述等）
+    const appConfig = ref({})
+
+    // 获取系统配置
+    const fetchAppConfig = async () => {
+        loading.value = true;
+        try {
+            let data = await loadAppConfig()
+            
+            appConfig.value = {
+                ...data
+            }
+        } catch (error) {
+            console.error('加载系统配置数据失败', error)
+        } finally {
+            loading.value = false
+        }
+    }
+
     return {
         isDark,
         device,
@@ -128,6 +157,9 @@ export const useAppStore = defineStore('app', () => {
         toggleConfigSideItemHeight,
         toggleConfigWatermark,
         toggleSideMode,
-        toggleTransition
+        toggleTransition,
+
+        fetchAppConfig,
+        appConfig
     }
 })

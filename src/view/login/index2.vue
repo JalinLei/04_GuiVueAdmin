@@ -1,36 +1,36 @@
 <template>
-    <div id="Login" class="gui-login w-full h-full relative">
+    <div id="Login" class="gui-login2 w-full h-full relative">
+        <div class="system__about">
+            <h2 class="system__title">{{ appConfig?.AppName }}</h2>
+            <p class="system__description">{{ appConfig?.AppDesc }}</p>
+        </div>
+
         <div class="login-wrapper">
-            <div class="system-about">
-                <div class="logo-title">
-                    <img class="w-24" :src="$GUI_VUE_ADMIN.appLogo" alt="logo" />
-                    <span class="title">{{ appConfig?.AppName }}</span>
-                </div>
-                <p class="description">{{ appConfig?.AppDesc }}</p>
-            </div>
-
-            <div class="divider"></div>
-
             <div class="login-container">
                 <div class="login-box">
                     <h2 class="login-title">用户登录</h2>
-                    <el-form ref="loginForm"
-                             :model="loginFormData"
-                             :rules="rules"
-                             :validate-on-rule-change="false"
-                             @keyup.enter="submitForm">
+
+                    <el-form ref="loginForm" :model="loginFormData" :rules="rules" :validate-on-rule-change="false" @keyup.enter="submitForm">
                         <el-form-item prop="username" class="mb-6">
-                            <el-input v-model="loginFormData.username" size="large" placeholder="请输入用户名"
-                                      suffix-icon="user" />
+                            <el-input v-model="loginFormData.username" size="large" placeholder="请输入用户名">
+                                <template #prefix>
+                                    <el-icon class="el-input__icon" :size="22">
+                                        <GgiPersonFill />
+                                    </el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
                         <el-form-item prop="password" class="mb-6">
-                            <el-input v-model="loginFormData.password" show-password size="large" type="password"
-                                      placeholder="请输入密码" />
+                            <el-input v-model="loginFormData.password" show-password size="large" type="password" placeholder="请输入密码">
+                                <template #prefix>
+                                    <el-icon class="el-input__icon" :size="20">
+                                        <GgiLockFill />
+                                    </el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
-                        <el-form-item class="mb-6">
-                            <el-button class="shadow shadow-active h-11 w-full" type="primary" size="large"
-                                       @click="submitForm">登 录
-                            </el-button>
+                        <el-form-item class="mb-6 mt-10">
+                            <el-button class="shadow shadow-active h-11 w-full" type="primary" size="large" @click="submitForm">登 录 </el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -47,7 +47,7 @@
     import { storeToRefs } from 'pinia'
 
     defineOptions({
-        name: 'Login'
+        name: 'Login2'
     })
 
     const appStore = useAppStore()
@@ -118,119 +118,121 @@
 </script>
 
 <style lang="scss">
-    .gui-login {
+    .gui-login2 {
         display: flex;
-        background: url(/src/assets/images/login/login_bg.png) no-repeat center center;
-        background-size: cover;
+        background: url(/src/assets/images/login/login_bg2.png) no-repeat center center;
+        background-size: 100% 100%;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
 
+        .system__about {
+            position: absolute;
+            top: 26vh;
+            width: 600px;
+            left: 18.5vw;
+
+            // 屏幕宽度小于等于1680px时
+            @media (max-width: 1680px) {
+                width: 550px;
+                left: 16vw;
+
+                .system__title {
+                    margin-bottom: 32px;
+                    font-size: 3rem;
+                }
+            }
+
+            // 屏幕宽度小于等于1440px时
+            @media (max-width: 1440px) {
+                width: 500px;
+                left: 14vw;
+
+                .system__title {
+                    margin-bottom: 25px;
+                    font-size: 2.8rem;
+                }
+            }
+
+            .system__title {
+                font-size: 3.2rem;
+                font-weight: 600;
+                color: var(--gui-color-text-regular);
+                text-align: left;
+                margin-bottom: 40px;
+                margin-top: 0;
+                font-family: '微软雅黑 light';
+                letter-spacing: 4px;
+            }
+            .system__description {
+                font-size: 16px;
+                line-height: 36px;
+                letter-spacing: 1px;
+                color: var(--gui-color-text-secondary);
+            }
+        }
+
         .login-wrapper {
-            display: flex;
-            background: rgba(0, 0, 0, 0.18);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
+            background-color: #fff;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
-            position: relative;
-            width: 900px;
+            position: absolute;
+            top: 26.5vh;
+            width: 380px;
             padding: 20px 0;
-        }
 
-        .system-about {
-            flex: 1.2;
-            padding: 40px 60px;
-            position: relative;
+            // 默认
+            right: 20.8vw;
 
-            .logo-title {
-                display: flex;
-                align-items: center;
-                margin-bottom: 30px;
-
-                img {
-                    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-                }
-
-                .title {
-                    font-size: 2.5rem;
-                    font-weight: 600;
-                    color: #ffffff;
-                    margin-left: 15px;
-                    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-                    letter-spacing: 1px;
-                }
+            // 屏幕宽度大于等于1920px时
+            @media (min-width: 1920px) {
+                right: 20.8vw;
             }
-
-            .description {
-                font-size: 1.2rem;
-                color: #ffffff;
-                opacity: 1;
-                line-height: 1.8;
-                text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-                font-weight: 400;
-                letter-spacing: 0.5px;
-                padding: 10px 0;
-                position: relative;
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -10px;
-                    left: 0;
-                    width: 50px;
-                    height: 3px;
-                    background: linear-gradient(90deg, #fff, transparent);
-                    border-radius: 3px;
-                }
+            // 屏幕宽度大于等于1680px时
+            @media (max-width: 1680px) {
+                right: 19.2vw;
+            }
+            // 屏幕宽度小于等于1440px时
+            @media (max-width: 1440px) {
+                right: 17.5vw;
             }
         }
-
-        .divider {
-            width: 1px;
-            margin: 20px 0;
-            background: linear-gradient(to bottom,
-                transparent,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            );
-            align-self: stretch;
-        }
-
+   
         .login-container {
-            flex: 0.8;
-            padding: 40px 60px;
+            padding: 16px 48px;
 
             .login-box {
                 width: 100%;
             }
 
             .login-title {
-                font-size: 2rem;
-                font-weight: 600;
-                color: #ffffff;
+                font-size: 1.8rem;
+                font-weight: 400;
+                color: var(--gui-color-text-regular);
                 text-align: center;
-                margin-bottom: 30px;
-                text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+                margin-bottom: 60px;
+                margin-top: 30px;
             }
         }
 
         :deep(.el-input__wrapper) {
-            background: rgba(0, 0, 0, 0.2);
+            background-color: red;
+            // background: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             height: 45px;
             box-shadow: none !important;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
 
-            &:hover, &.is-focus {
+            &:hover,
+            &.is-focus {
                 background: rgba(0, 0, 0, 0.3);
                 border-color: rgba(255, 255, 255, 0.6);
             }
 
             .el-input__inner {
                 color: #ffffff;
+
                 &::placeholder {
                     color: rgba(255, 255, 255, 0.9);
                 }
@@ -269,16 +271,16 @@
                 margin: 20px;
             }
 
-            .divider {
-                width: auto;
-                height: 1px;
-                margin: 0 20px;
-            }
-
-            .system-about,
             .login-container {
                 padding: 30px;
             }
+        }
+
+        input:-webkit-autofill {
+            background-color: #f1f3f4 !important;
+            -webkit-box-shadow: 0 0 0px 1000px #f1f3f4 inset !important;
+            box-shadow: 0 0 0px 1000px #f1f3f4 inset !important;
+            -webkit-text-fill-color: var(--gui-color-text-regular) !important;
         }
     }
 </style>

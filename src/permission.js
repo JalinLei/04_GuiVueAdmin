@@ -1,5 +1,4 @@
-import { useUserStore } from '@/pinia/modules/user'
-import { useRouterStore } from '@/pinia/modules/router'
+import { useUserStore, useRouterStore, useAppStore } from '@/pinia'
 import getPageTitle from '@/utils/common/page'
 import router from '@/router'
 import Nprogress from 'nprogress'
@@ -13,7 +12,7 @@ Nprogress.configure({
 })
 
 // 白名单路由
-const WHITE_LIST = ['Login', 'Init']
+const WHITE_LIST = ['Login', 'Init', 'Login2']
 
 // 处理路由加载
 const setupRouter = async (userStore) => {
@@ -67,6 +66,7 @@ const handleRedirect = (to, userStore) => {
 
 // 路由守卫
 router.beforeEach(async (to, from) => {
+    const appStore = useAppStore()
     const userStore = useUserStore()
     const routerStore = useRouterStore()
     const token = userStore.token
@@ -78,7 +78,7 @@ router.beforeEach(async (to, from) => {
     await handleKeepAlive(to)
 
     // 设置页面标题
-    document.title = getPageTitle(to.meta.title, to)
+    document.title = getPageTitle(to.meta.title, to, appStore?.appConfig?.AppName)
 
     if (to.meta.client) {
         return true

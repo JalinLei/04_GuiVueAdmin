@@ -2,11 +2,11 @@ var express = require('express')
 var router = express.Router()
 
 /* GET menus listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.send('菜单管理')
 })
 
-router.get('/GetMenuList', function(req, res, next) {
+router.get('/GetMenuList', function (req, res, next) {
     res.json({
         "code": 200,
         "message": "SUCCESS",
@@ -131,7 +131,9 @@ router.get('/GetMenuList', function(req, res, next) {
                             }
                         ]
                     }
-                ]
+                ],
+                'parameters': [],
+                'btns': null
             },
             {
                 "id": 3,
@@ -163,7 +165,9 @@ router.get('/GetMenuList', function(req, res, next) {
                             "icon": null,
                             "defaultMenu": false
                         },
-                        "children": null
+                        "children": null,
+                        'parameters': [],
+                        'btns': null
                     },
                     {
                         "id": 41,
@@ -179,18 +183,65 @@ router.get('/GetMenuList', function(req, res, next) {
                             "icon": null,
                             "defaultMenu": false
                         },
-                        "children": null
+                        "children": null,
+                        'parameters': [],
+                        'btns': null
                     },
-                ]
+                ],
+                'parameters': [],
+                'btns': null
             },
             {
                 "id": 3,
+                "parentId": 0,
+                "path": "ep",
+                "hidden": false,
+                "name": "epLayout",
+                "component": "view/routerHolder.vue",
+                "sort": 3,
+                "meta": {
+                    "keepAlive": false,
+                    "title": "ElementPlus组件",
+                    "icon": null,
+                    "defaultMenu": false,
+                    "activeName": ""
+                },
+                "children": [
+                    { value: 'button', label: '按钮' },
+
+                    { value: 'tooltip', label: '文字提示' },
+                    { value: 'divider', label: '分割线' },
+                ].map((item, index) => ({
+                    "id": 301 + index,  // 基准ID + 索引保持唯一性
+                    "parentId": 3,
+                    "path": item.value,  // 使用value作为路径
+                    "hidden": false,
+                    "name": `Ep${item.value.charAt(0).toUpperCase() + item.value.slice(1)}`,  // 基于value生成组件名
+                    "component": `view/ep/${item.value}.vue`,
+                    "sort": index + 1,
+                    "meta": {
+                        "activeName": "",
+                        "keepAlive": false,
+                        "defaultMenu": false,
+                        "title": item.label,
+                        "icon": "odometer",
+                        "closeTab": false
+                    },
+                    "children": null,
+                    'parameters': [],
+                    'btns': null
+                })),
+                'parameters': [],
+                'btns': null
+            },
+            {
+                "id": 4,
                 "parentId": 0,
                 "path": "other",
                 "hidden": false,
                 "name": "OtherLayout",
                 "component": "view/routerHolder.vue",
-                "sort": 3,
+                "sort": 4,
                 "meta": {
                     "keepAlive": false,
                     "title": "其他模块",
@@ -200,8 +251,8 @@ router.get('/GetMenuList', function(req, res, next) {
                 },
                 "children": [
                     {
-                        "id": 31,
-                        "parentId": 3,
+                        "id": 41,
+                        "parentId": 4,
                         "path": "tailwind",
                         "hidden": false,
                         "name": "OtherTailwind",
@@ -213,10 +264,31 @@ router.get('/GetMenuList', function(req, res, next) {
                             "icon": null,
                             "defaultMenu": false
                         },
-                        "children": null
+                        "children": null,
+                        'parameters': [],
+                        'btns': null
                     },
-
-                ]
+                    {
+                        "id": 42,
+                        "parentId": 4,
+                        "path": "icon",
+                        "hidden": false,
+                        "name": "OtherIcon",
+                        "component": "view/other/icon.vue",
+                        "sort": 2,
+                        "meta": {
+                            "keepAlive": false,
+                            "title": "SVG图标",
+                            "icon": null,
+                            "defaultMenu": false
+                        },
+                        "children": null,
+                        'parameters': [],
+                        'btns': null
+                    },
+                ],
+                'parameters': [],
+                'btns': null
             },
             {
                 "id": 10,
@@ -282,7 +354,9 @@ router.get('/GetMenuList', function(req, res, next) {
                         },
                         "children": null
                     }
-                ]
+                ],
+                'parameters': [],
+                'btns': null
             },
         ]
     });

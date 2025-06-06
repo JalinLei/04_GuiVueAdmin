@@ -11,7 +11,7 @@
                 <div v-if="!isMobile" class="gui-header--logo inline-flex font-bold text-[24px] ml-2"
                      :class=" (config.side_mode === 'head' || config.side_mode === 'combination') && 'min-w-fit'"
                 >
-                    {{ $GUI_VUE_ADMIN.appName }}
+                    {{ appConfig?.AppName }}
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
     const router = useRouter()
     const route = useRoute()
     const appStore = useAppStore()
-    const { device, config } = storeToRefs(appStore)
+    const { device, config, appConfig } = storeToRefs(appStore)
     const isMobile = computed(() => {
         return device.value === 'mobile'
     })
